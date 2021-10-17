@@ -1,23 +1,22 @@
 export default class SortableTable {
-  constructor(headerConfig = [], data = []) {
-    element;
-    subElements = {};
+  element;
+  subElements = {};
 
-    constructor(headersConfig = [], data = []) {
-      this.headersConfig = headersConfig;
-      this.data = data;
+  constructor(headersConfig = [], data = []) {
+    this.headersConfig = headersConfig;
+    this.data = data;
 
-      this.render();
-    }
+    this.render();
+  }
 
-    getTableHeader() {
-      return `<div data-element="header" class="sortable-table__header sortable-table__row">
+  getTableHeader() {
+    return `<div data-element="header" class="sortable-table__header sortable-table__row">
       ${this.headersConfig.map(item => this.getHeaderRow(item)).join('')}
     </div>`;
-    }
+  }
 
-    getHeaderRow({id, title, sortable}) {
-      return `
+  getHeaderRow({id, title, sortable}) {
+    return `
       <div class="sortable-table__cell" data-id="${id}" data-sortable="${sortable}">
         <span>${title}</span>
         <span data-element="arrow" class="sortable-table__sort-arrow">
@@ -25,23 +24,22 @@ export default class SortableTable {
         </span>
       </div>
     `;
-    }
+  }
 
-    getTableBody() {
-      return `
+  getTableBody() {
+    return `
       <div data-element="body" class="sortable-table__body">
         ${this.getTableRows(this.data)}
       </div>`;
-    }
+  }
 
-    getTableRows(data) {
-      return data.map(item => {
-        return `
+  getTableRows(data) {
+    return data.map(item => {
+      return `
         <a href="/products/${item.id}" class="sortable-table__row">
           ${this.getTableRow(item)}
         </a>`;
-      }).join('');
-    }
+    }).join('');
   }
 
   getTableRow(item) {
@@ -105,12 +103,12 @@ export default class SortableTable {
 
     return arr.sort((a, b) => {
       switch (sortType) {
-        case 'number':
-          return direction * (a[field] - b[field]);
-        case 'string':
-          return direction * a[field].localeCompare(b[field], ['ru', 'en']);
-        default:
-          return direction * (a[field] - b[field]);
+      case 'number':
+        return direction * (a[field] - b[field]);
+      case 'string':
+        return direction * a[field].localeCompare(b[field], ['ru', 'en']);
+      default:
+        return direction * (a[field] - b[field]);
       }
     });
   }
@@ -140,4 +138,3 @@ export default class SortableTable {
     this.subElements = {};
   }
 }
-
